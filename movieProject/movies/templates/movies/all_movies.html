@@ -1,0 +1,20 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="jumbotron container-fluid row flex" >
+        <h1>Movie Gallery</h1>
+        <p>Click the movie to view details and Rate</p>
+        <div class="row">
+            {% for movie in movies %}
+                <div class="col-md-2 mb-4">
+                    <a href="{{ url_for('movies.movie_details', movie_id=movie.id) }}">        
+                        <img src="{{ movie.poster_path }}" alt="{{ movie.title }}" class="rounded galleryImg" >
+                    </a>
+                    <br>
+                    {{ movie.__repr__() }}
+                </div>
+                {% endfor %}
+        </div>
+    </div>
+{% endblock %}

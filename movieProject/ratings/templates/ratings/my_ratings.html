@@ -1,0 +1,21 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="jumbotron container-fluid row flex" >
+        <h1>Movie Gallery</h1>
+        <p>Click the movie to view details and Rate</p>
+        <div class="row">
+            {% for rating in rating_images %}
+                <div class="col-md-2 mb-4">
+                    <a href="{{ url_for('movies.movie_details', movie_id=rating.movie_id) }}">        
+                        <img src="{{ rating.poster_path }}" alt="{{ rating.id }}" class="rounded galleryImg" >
+                    </a>
+                    <br>
+                    {{ rating.json() }}
+                    
+                </div>
+                {% endfor %}
+        </div>
+    </div>
+{% endblock %}

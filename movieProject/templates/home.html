@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="jumbotron">
+    <h1>Cinema Rate!</h1>
+    {% if current_user.is_authenticated %}
+    <p>Hi {{current_user.username}}!</p>
+    {% else %}
+    <p>Please login or register</p>
+    {% endif %}
+    <img class="container mx-auto" src="https://tinyurl.com/yp99naha" alt="project tracker">
+</div>
+{% endblock %}
