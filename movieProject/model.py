@@ -22,18 +22,21 @@ class User(UserMixin, db.Model):
 
     id = db.Column(db.Integer, primary_key = True, autoincrement = True)
     email = db.Column(db.String(255), unique = True, nullable = False)
-    password_hash = db.Column(db.String(255), nullable = False)
+    password_hash = db.Column(db.String(100), nullable = False)
 
 
     def __init__(self, email, password):
         self.email = email
-        self.password_hash = generate_password_hash(password)
+        self.password_hash = bcrypt.generate_password_hash(password).decode('utf-8')
 
 
     def __str__(self):
         return f"User Id: {self.id}"
     
     def check_password(self, password):
+        print(f"password {password}")
+        print(f"hash {self.password_hash}")
+        print(f"check {bcrypt.check_password_hash(self.password_hash, password)}")
         return bcrypt.check_password_hash(self.password_hash, password)
     
     def json(self):
@@ -63,7 +66,7 @@ class Movie(db.Model):
         return f"'id' : {self.id}, 'title' : {self.title}, 'overview' : {self.overview}, 'release_date' : {self.release_date}, 'poster_path' : {self.poster_path}"
     
     def __repr__(self):
-        return f"<Movie id = {self.id} title = {self.title}>"
+        return f"{self.title} - {self.release_date}>"
     
 
 class Rating(db.Model):

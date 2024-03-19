@@ -1,0 +1,37 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="jumbotron container-fluid row flex">
+        {% if movie %}
+        <div class="row">
+            <div class="col-md-5">
+                <img class="img-thumbnail" src="{{ movie.poster_path }}" alt="{{ movie.title }}" style="width: 100%;">
+            </div>
+            <div class="col-md-5">
+                <h4>
+                    Title: {{ movie.title }} <br>
+                </h4>
+                    Summary: {{ movie.overview }} <br>
+                    Release Date: {{ movie.release_date }} <br>
+                <div class="col-md-6">
+                    <form action="{{ url_for('movies.movie_details', movie_id=movie.id) }}" method="post">
+                        {{ form.hidden_tag() }}
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                {{ form.score.label }} {{ form.score() }}
+                            </li>
+                            <li class="list-group-item">
+                                {{ form.review.label }} {{ form.review() }}
+                            </li>
+                            <li class="list-group-item">
+                                {{ form.submit() }}
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -3,17 +3,20 @@
 
 {% block content %}
     <div class="jumbotron container-fluid row flex" >
-        <h1>Movie Gallery</h1>
-        <p>Click the movie to view details and Rate</p>
+        <h1>My Reviews</h1>
+
         <div class="row">
-            {% for rating in rating_images %}
+            {% for rating in rating_data %}
                 <div class="col-md-2 mb-4">
                     <a href="{{ url_for('movies.movie_details', movie_id=rating.movie_id) }}">        
-                        <img src="{{ rating.poster_path }}" alt="{{ rating.id }}" class="rounded galleryImg" >
+                        <img src="{{ rating.poster_path }}" alt="{{ rating.id }}" class="rounded galleryImg img-thumbnail" >
                     </a>
+                    {{ rating.title }} - {{ rating.year.strftime('%Y-%m-%d') }}
                     <br>
-                    {{ rating.json() }}
-                    
+                    <br>
+                    Score: {{ rating.rating }} out of 5
+                    <br>
+                    Review: {{ rating.review }}  
                 </div>
                 {% endfor %}
         </div>

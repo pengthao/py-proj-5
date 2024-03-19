@@ -13,10 +13,18 @@ def my_ratings():
     print(f'user id print {user}')
 
     rating_data = []
-    ratings = Rating.query.filter_by(user_id = user)
+    ratings = Rating.query.filter_by(user_id = user).all()
     for rating in ratings:
         movie = Movie.query.filter_by(id = rating.movie_id).first()
         rating.poster_path = movie.poster_path
-        rating_data.append({"rating": rating, "movie": movie})
+        rating_data.append({
+            "movie_id": movie.id
+            ,"rating": rating.score
+            ,"year": movie.release_date
+            , "title": movie.title
+            , "overview": movie.overview
+            , "poster_path": movie.poster_path
+            , "review": rating.review
+            })
  
     return render_template('my_ratings.html', rating_data=rating_data)

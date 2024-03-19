@@ -16,27 +16,25 @@ def all_movies():
 
 @movies_blueprint.route('/movie_details/<movie_id>', methods=["GET", "POST"])
 def movie_details(movie_id):
-    movie =  Movie.query.filter_by(id = movie_id)
+    movie =  Movie.query.filter_by(id=movie_id).first()
 
     form = AddRating()
 
-    if request.method == "Post":
+    if request.method == "POST":
         if form.validate_on_submit():
-
             user = current_user
-            print(user)
 
             movieRating = Rating(
-                score = form.score.data,
-                movie_id = movie.id,
-                user_id = user.id,
-                review = form.review.data
+                score=form.score.data,
+                movie_id=movie.id,
+                user_id=user.id,
+                review=form.review.data
             )
 
             db.session.add(movieRating)
             db.session.commit()
-            print(movieRating.json())
-            return redirect(url_for('ratings.my_ratings'))
-        return render_template('movie_details.html/<movie_id>', movie_id=movie_id)
 
+            return redirect(url_for('ratings.my_ratings'))
+
+    return render_template('movie_details.html', movie=movie, form=form)
 

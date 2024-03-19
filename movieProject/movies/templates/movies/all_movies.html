@@ -9,10 +9,10 @@
             {% for movie in movies %}
                 <div class="col-md-2 mb-4">
                     <a href="{{ url_for('movies.movie_details', movie_id=movie.id) }}">        
-                        <img src="{{ movie.poster_path }}" alt="{{ movie.title }}" class="rounded galleryImg" >
+                        <img src="{{ movie.poster_path }}" alt="{{ movie.title }}" class="rounded galleryImg img-thumbnail" >
                     </a>
                     <br>
-                    {{ movie.__repr__() }}
+                    {{ movie.title }} - {{ movie.release_date.strftime('%Y-%m-%d') }}
                 </div>
                 {% endfor %}
         </div>
